@@ -22,9 +22,7 @@ public class OrderReceipt {
 
         printsLineItemDetails(output);
 
-        double totalSalesTax = calculateSalesTax();
-        output.append("Sales Tax").append('\t').append(totalSalesTax);
-        output.append("Total Amount").append('\t').append(getTotalWithoutTax() + totalSalesTax);
+        printSummary(output);
 
 		return output.toString();
 	}
@@ -40,6 +38,16 @@ public class OrderReceipt {
             output.append(lineItem.totalAmount());
             output.append('\n');
         }
+    }
+
+    private void printSummary(StringBuilder output) {
+        double totalSalesTax = calculateSalesTax();
+        output.append("Sales Tax")
+                .append('\t')
+                .append(totalSalesTax);
+        output.append("Total Amount")
+                .append('\t')
+                .append(getTotalWithoutTax() + totalSalesTax);
     }
 
     private double getTotalWithoutTax() {

@@ -18,7 +18,7 @@ public class OrderReceipt {
 		StringBuilder output = new StringBuilder();
 
         output.append(getHeader());
-        privateCustomerDetail(output);
+        output.append(order.getCustomer().getCustomerInfo());
         printsLineItemDetails(output);
         printSummary(output);
 
@@ -27,12 +27,6 @@ public class OrderReceipt {
 
     private String getHeader() {
         return "======Printing Orders======\n";
-    }
-
-    private void privateCustomerDetail(StringBuilder output) {
-        Customer customer = order.getCustomer();
-        output.append(customer.getName());
-        output.append(customer.getAddress());
     }
 
     private void printsLineItemDetails(StringBuilder output) {

@@ -24,4 +24,13 @@ public class Customer {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    String getCustomerInfo() {
+        StringBuilder customerInfoBuilder = new StringBuilder();
+
+        customerInfoBuilder.append(getName());
+        customerInfoBuilder.append(getAddress());
+
+        return customerInfoBuilder.toString();
+    }
 }

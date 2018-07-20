@@ -17,16 +17,16 @@ public class OrderReceipt {
 	public String printReceipt() {
 		StringBuilder output = new StringBuilder();
 
-        printHeaders(output);
+        output.append(getHeader());
         privateCustomerDetail(output);
         printsLineItemDetails(output);
         printSummary(output);
 
 		return output.toString();
 	}
-	
-    private void printHeaders(StringBuilder output) {
-        output.append("======Printing Orders======\n");
+
+    private String getHeader() {
+        return "======Printing Orders======\n";
     }
 
     private void privateCustomerDetail(StringBuilder output) {

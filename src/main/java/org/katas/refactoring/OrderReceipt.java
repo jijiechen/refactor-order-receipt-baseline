@@ -24,7 +24,7 @@ public class OrderReceipt {
 
         double totalSalesTax = calculateSalesTax();
         output.append("Sales Tax").append('\t').append(totalSalesTax);
-		output.append("Total Amount").append('\t').append(calculateTotalAmount(totalSalesTax));
+        output.append("Total Amount").append('\t').append(getTotalWithoutTax() + totalSalesTax);
 
 		return output.toString();
 	}
@@ -42,15 +42,15 @@ public class OrderReceipt {
         }
     }
 
-    private double  calculateTotalAmount(double totalSales){
+    private double getTotalWithoutTax() {
         double total = 0d;
         for (LineItem lineItem : order.getLineItems()) {
             total += lineItem.totalAmount();
         }
-        return total + totalSales;
+        return total;
     }
 
-	private double  calculateSalesTax(){
+    private double  calculateSalesTax(){
         double totSalesTx = 0d;
         for (LineItem lineItem : order.getLineItems()) {
             // calculate sales tax @ rate of 10%

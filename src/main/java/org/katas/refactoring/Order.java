@@ -1,6 +1,7 @@
 package org.katas.refactoring;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Order {
     private Customer customer;
@@ -39,11 +40,9 @@ public class Order {
 
 
     private String generateLineItemDetails() {
-        StringBuilder lineItemsDetailBuilder = new StringBuilder();
-        for (LineItem lineItem : getLineItems()) {
-            lineItemsDetailBuilder.append(lineItem.generateDetail());
-        }
-        return lineItemsDetailBuilder.toString();
+        return getLineItems().stream()
+                .map(lineItem -> lineItem.generateDetail())
+                .collect(Collectors.joining());
     }
 
     private double getTotalWithoutTax() {

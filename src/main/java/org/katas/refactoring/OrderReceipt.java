@@ -42,12 +42,11 @@ public class OrderReceipt {
     }
 
     private double  calculateTotalAmount(){
-        double tot = 0d;
+        double total = 0d;
         for (LineItem lineItem : order.getLineItems()) {
-            double salesTax = lineItem.totalAmount() * .10;// calculate total amount of lineItem = price * quantity + 10 % sales tax
-            tot += lineItem.totalAmount() + salesTax;
+            total += lineItem.totalAmount();
         }
-        return tot;
+        return total + calculateSalesTax();
     }
 
 	private double  calculateSalesTax(){

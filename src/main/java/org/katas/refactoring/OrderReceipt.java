@@ -1,5 +1,7 @@
 package org.katas.refactoring;
 
+import java.util.stream.Stream;
+
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
  * price and amount. It also calculates the sales tax @ 10% and prints as part
@@ -51,21 +53,18 @@ public class OrderReceipt {
     }
 
     private double getTotalWithoutTax() {
-        double total = 0d;
-        for (LineItem lineItem : order.getLineItems()) {
-            total += lineItem.totalAmount();
-        }
-        return total;
+        return order.getLineItems()
+                .stream()
+                .mapToDouble(item -> item.totalAmount())
+                .sum();
     }
 
     private double  calculateSalesTax(){
-        double totSalesTx = 0d;
-        for (LineItem lineItem : order.getLineItems()) {
-            // calculate sales tax @ rate of 10%
-            double salesTax = lineItem.totalAmount() * .10;
-            totSalesTx += salesTax;
-        }
-        return totSalesTx;
+        return order.getLineItems()
+                .stream()
+                .mapToDouble(item -> item.totalAmount() * .10)
+                .sum();
+
     }
 
     private void privateCustomerDetail(StringBuilder output) {

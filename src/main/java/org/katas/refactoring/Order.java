@@ -27,7 +27,18 @@ public class Order {
         return customer;
     }
 
-    String generateLineItemDetails() {
+    String generateReceipt() {
+        StringBuilder orderBuilder = new StringBuilder();
+
+        orderBuilder.append(getCustomer().generateInfo())
+                .append(generateLineItemDetails())
+                .append(generateSummary());
+
+        return orderBuilder.toString();
+    }
+
+
+    private String generateLineItemDetails() {
         StringBuilder lineItemsDetailBuilder = new StringBuilder();
         for (LineItem lineItem : getLineItems()) {
             lineItemsDetailBuilder.append(lineItem.generateDetail());
@@ -35,14 +46,14 @@ public class Order {
         return lineItemsDetailBuilder.toString();
     }
 
-    double getTotalWithoutTax() {
+    private double getTotalWithoutTax() {
         return getLineItems()
                 .stream()
                 .mapToDouble(item -> item.totalAmount())
                 .sum();
     }
 
-    String generateSummary() {
+    private String generateSummary() {
         double totalWithoutTax = getTotalWithoutTax();
         double totalSalesTax = .10d * totalWithoutTax;
 
@@ -55,15 +66,5 @@ public class Order {
                 .append(totalWithoutTax + totalSalesTax);
 
         return summaryBuilder.toString();
-    }
-
-    String generateReceipt() {
-        StringBuilder orderBuilder = new StringBuilder();
-
-        orderBuilder.append(getCustomer().generateCustomerInfo())
-                .append(generateLineItemDetails())
-                .append(generateSummary());
-
-        return orderBuilder.toString();
     }
 }

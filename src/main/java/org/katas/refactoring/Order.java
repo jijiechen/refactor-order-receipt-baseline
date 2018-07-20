@@ -56,4 +56,14 @@ public class Order {
 
         return summaryBuilder.toString();
     }
+
+    String generateReceipt() {
+        StringBuilder orderBuilder = new StringBuilder();
+
+        orderBuilder.append(getCustomer().generateCustomerInfo())
+                .append(generateLineItemDetails())
+                .append(generateSummary());
+
+        return orderBuilder.toString();
+    }
 }

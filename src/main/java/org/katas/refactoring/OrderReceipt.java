@@ -18,9 +18,7 @@ public class OrderReceipt {
 		StringBuilder output = new StringBuilder();
 
         output.append(getHeader());
-        output.append(order.getCustomer().generateCustomerInfo());
-        output.append(order.generateLineItemDetails());
-        output.append(order.generateSummary());
+        output.append(order.generateReceipt());
 
         return output.toString();
 	}

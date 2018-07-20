@@ -19,13 +19,21 @@ public class OrderReceipt {
 
         printHeaders(output);
         privateCustomerDetail(output);
-
         printsLineItemDetails(output);
-
         printSummary(output);
 
 		return output.toString();
 	}
+	
+    private void printHeaders(StringBuilder output) {
+        output.append("======Printing Orders======\n");
+    }
+
+    private void privateCustomerDetail(StringBuilder output) {
+        Customer customer = order.getCustomer();
+        output.append(customer.getName());
+        output.append(customer.getAddress());
+    }
 
     private void printsLineItemDetails(StringBuilder output) {
         for (LineItem lineItem : order.getLineItems()) {
@@ -56,15 +64,5 @@ public class OrderReceipt {
                 .stream()
                 .mapToDouble(item -> item.totalAmount())
                 .sum();
-    }
-
-    private void privateCustomerDetail(StringBuilder output) {
-        Customer customer = order.getCustomer();
-        output.append(customer.getName());
-        output.append(customer.getAddress());
-    }
-
-    private void printHeaders(StringBuilder output) {
-        output.append("======Printing Orders======\n");
     }
 }

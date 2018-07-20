@@ -26,4 +26,34 @@ public class Order {
     public Customer getCustomer() {
         return customer;
     }
+
+    String generateLineItemDetails() {
+        StringBuilder lineItemsDetailBuilder = new StringBuilder();
+        for (LineItem lineItem : getLineItems()) {
+            lineItemsDetailBuilder.append(lineItem.generateDetail());
+        }
+        return lineItemsDetailBuilder.toString();
+    }
+
+    double getTotalWithoutTax() {
+        return getLineItems()
+                .stream()
+                .mapToDouble(item -> item.totalAmount())
+                .sum();
+    }
+
+    String generateSummary() {
+        double totalWithoutTax = getTotalWithoutTax();
+        double totalSalesTax = .10d * totalWithoutTax;
+
+        StringBuilder summaryBuilder = new StringBuilder();
+        summaryBuilder.append("Sales Tax")
+                .append('\t')
+                .append(totalSalesTax);
+        summaryBuilder.append("Total Amount")
+                .append('\t')
+                .append(totalWithoutTax + totalSalesTax);
+
+        return summaryBuilder.toString();
+    }
 }

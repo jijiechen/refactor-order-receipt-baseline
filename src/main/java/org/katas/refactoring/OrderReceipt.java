@@ -18,45 +18,15 @@ public class OrderReceipt {
 		StringBuilder output = new StringBuilder();
 
         output.append(getHeader());
-        output.append(order.getCustomer().getCustomerInfo());
-        printsLineItemDetails(output);
-        printSummary(output);
+        output.append(order.getCustomer().generateCustomerInfo());
+        output.append(order.generateLineItemDetails());
+        output.append(order.generateSummary());
 
-		return output.toString();
+        return output.toString();
 	}
 
     private String getHeader() {
         return "======Printing Orders======\n";
     }
 
-    private void printsLineItemDetails(StringBuilder output) {
-        for (LineItem lineItem : order.getLineItems()) {
-            output.append(lineItem.getDescription());
-            output.append('\t');
-            output.append(lineItem.getPrice());
-            output.append('\t');
-            output.append(lineItem.getQuantity());
-            output.append('\t');
-            output.append(lineItem.totalAmount());
-            output.append('\n');
-        }
-    }
-
-    private void printSummary(StringBuilder output) {
-        double totalWithoutTax = getTotalWithoutTax();
-        double totalSalesTax = .10d * totalWithoutTax;
-        output.append("Sales Tax")
-                .append('\t')
-                .append(totalSalesTax);
-        output.append("Total Amount")
-                .append('\t')
-                .append(totalWithoutTax + totalSalesTax);
-    }
-
-    private double getTotalWithoutTax() {
-        return order.getLineItems()
-                .stream()
-                .mapToDouble(item -> item.totalAmount())
-                .sum();
-    }
 }

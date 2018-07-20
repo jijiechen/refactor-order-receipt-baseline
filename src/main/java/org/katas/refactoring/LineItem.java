@@ -27,4 +27,18 @@ public class LineItem {
     double totalAmount() {
         return p * qty;
     }
+
+	String generateDetail() {
+		StringBuilder lineItemBuilder = new StringBuilder();
+		lineItemBuilder.append(getDescription());
+		lineItemBuilder.append('\t');
+		lineItemBuilder.append(getPrice());
+		lineItemBuilder.append('\t');
+		lineItemBuilder.append(getQuantity());
+		lineItemBuilder.append('\t');
+		lineItemBuilder.append(totalAmount());
+		lineItemBuilder.append('\n');
+
+		return lineItemBuilder.toString();
+	}
 }

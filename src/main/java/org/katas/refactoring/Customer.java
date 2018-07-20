@@ -25,7 +25,7 @@ public class Customer {
         this.address = address;
     }
 
-    String getCustomerInfo() {
+    String generateCustomerInfo() {
         StringBuilder customerInfoBuilder = new StringBuilder();
 
         customerInfoBuilder.append(getName());

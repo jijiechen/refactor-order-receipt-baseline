@@ -41,7 +41,7 @@ public class OrderReceipt {
         }
     }
 
-    public double  calculateTotalAmount(){
+    private double  calculateTotalAmount(){
         double tot = 0d;
         for (LineItem lineItem : order.getLineItems()) {
             double salesTax = lineItem.totalAmount() * .10;// calculate total amount of lineItem = price * quantity + 10 % sales tax
@@ -50,7 +50,7 @@ public class OrderReceipt {
         return tot;
     }
 
-	public double  calculateSales(){
+	private double  calculateSales(){
         double totSalesTx = 0d;
         for (LineItem lineItem : order.getLineItems()) {
             // calculate sales tax @ rate of 10%
